@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Auth </title>
+</head>
+<body>
+  <h1>GitHub Auth </h1>
+
+  <div id="login-status">
+    <p id="info-usuario"></p>
+    <button id="login">Login com GitHub</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const loginButton = document.getElementById('login');
+      const infoUsuario  = document.getElementById('info-usuario');
+
+      
+      loginButton.addEventListener('click', function () {
+        
+        window.location.href = 'http://localhost:3000/auth/github';
+      });
+      
+      fetch('http://localhost:3000/profile')
+        .then(response => response.json())
+        .then(data => {
+          if (data.isAuthenticated) {
+            infoUsuario.textContent = `Bem-vindo, ${data.user.displayName}!`;
+            loginButton.style.display = 'none';
+          } else {
+            infoUsuario.textContent = 'Você não está autenticado.';
+            loginButton.style.display = 'block';
+          }
+        })
+        .catch(error => console.error('Erro ao verificar o status de login:', error));
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
