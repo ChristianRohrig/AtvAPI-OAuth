@@ -6,7 +6,7 @@ const GitHubStrategy = require('passport-github').Strategy;
 const app = express();
 
 
-app.use(session({ secret: 'sua-chave-secreta', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'Chave123', resave: true, saveUninitialized: true }));
 
 
 app.use(passport.initialize());
